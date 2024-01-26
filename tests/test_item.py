@@ -24,8 +24,8 @@ def test_name_setter(item_for_test):
 
 def test_instantiate_from_csv(item_for_test):
     item_for_test.instantiate_from_csv(CSV_PATH)  # создание объектов из данных файла
-    assert len(Item.all) == 6
-    item = item_for_test.all[1]
+    assert len(Item.all) == 5
+    item = item_for_test.all[0]
     assert item.name == 'Смартфон'
 
 def test_string_to_number():
