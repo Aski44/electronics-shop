@@ -41,6 +41,7 @@ class Item:
         """
         Класс-метод, инициализирующий экземпляры класса `Item` данными из файла _src/items.csv_
         """
+        cls.all = [] # обнулила список
         with open(csvfile, newline='', encoding="cp1251") as file:
             reader = csv.DictReader(file)
             for row in reader:
