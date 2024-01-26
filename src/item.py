@@ -8,7 +8,7 @@ class Item:
     pay_rate = 1.0
     all = []
 
-    def __init__(self, name: str, price: float, quantity: int) -> None: #price: float
+    def __init__(self, name: str, price: float, quantity: int) -> None:
         """
         Создание экземпляра класса item.
 
@@ -31,7 +31,7 @@ class Item:
     @name.setter
     def name(self, name):
         """
-        Проверяет, что длина наименования товара не больше 10 симвовов.
+        Проверяет, что длина наименования товара не больше 10 символов.
         В противном случае, обрезать строку (оставить первые 10 символов).
         """
         self.__name = name[:10]
@@ -45,7 +45,7 @@ class Item:
             reader = csv.DictReader(file)
             for row in reader:
                 name, price, quantity = row['name'], float(row['price']), int(row['quantity'])
-                items = cls(name, price, quantity)
+                cls(name, price, quantity)
 
     @staticmethod
     def string_to_number(string):
