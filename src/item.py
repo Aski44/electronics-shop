@@ -29,12 +29,12 @@ class Item:
         return self.__name
 
     @name.setter
-    def name(self, name):
+    def name(self, new_name):
         """
         Проверяет, что длина наименования товара не больше 10 символов.
         В противном случае, обрезать строку (оставить первые 10 символов).
         """
-        self.__name = name[:10]
+        self.__name = new_name[:10]
 
     @classmethod
     def instantiate_from_csv(cls, csvfile):
@@ -60,7 +60,6 @@ class Item:
     def calculate_total_price(self) -> float:
         """
         Рассчитывает общую стоимость конкретного товара в магазине.
-
         :return: Общая стоимость товара.
         """
         return self.price * self.quantity
