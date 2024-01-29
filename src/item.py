@@ -21,6 +21,12 @@ class Item:
         self.quantity = quantity
         Item.all.append(self)
 
+    def __repr__(self):
+        return f"{self.__class__.__name__}('{self.__name}', {self.price}, {self.quantity})"
+
+    def __str__(self):
+        return self.__name
+
     @property
     def name(self):
         """
@@ -41,7 +47,7 @@ class Item:
         """
         Класс-метод, инициализирующий экземпляры класса `Item` данными из файла _src/items.csv_
         """
-        cls.all = [] # обнулила список
+        cls.all = []  # обнулила список
         with open(csvfile, newline='', encoding="cp1251") as file:
             reader = csv.DictReader(file)
             for row in reader:
