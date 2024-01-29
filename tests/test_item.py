@@ -13,6 +13,16 @@ def item_for_test():
     return Item("Смартфон", 10000, 20)
 
 
+def test_repr(item_for_test):
+    """Проверка работы магического метода __repr__."""
+    assert repr(item_for_test) == "Item('Смартфон', 10000, 20)"
+
+
+def test_str(item_for_test):
+    """Проверка работы магического метода __str__."""
+    assert str(item_for_test) == 'Смартфон'
+
+
 def test_name(item_for_test):
     """Проверка работы геттера."""
     assert item_for_test.name == 'Смартфон'
