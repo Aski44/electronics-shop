@@ -2,6 +2,7 @@
 import pytest
 
 from src.item import Item
+from src.phone import Phone
 from config import ROOT
 import os
 
@@ -13,6 +14,11 @@ def item_for_test():
     return Item("Смартфон", 10000, 20)
 
 
+@pytest.fixture
+def item_for_test_2():
+    return Phone("iPhone 14", 120_000, 5, 2)
+
+
 def test_repr(item_for_test):
     """Проверка работы магического метода __repr__."""
     assert repr(item_for_test) == "Item('Смартфон', 10000, 20)"
@@ -21,6 +27,14 @@ def test_repr(item_for_test):
 def test_str(item_for_test):
     """Проверка работы магического метода __str__."""
     assert str(item_for_test) == 'Смартфон'
+
+
+def test_add(item_for_test, item_for_test_2):
+    """Проверка работы магического метода __add__."""
+    assert item_for_test_2 + item_for_test == 25
+    assert item_for_test_2 + item_for_test_2 == 10
+    with pytest.raises(ValueError):
+        item_for_test_2 + 5
 
 
 def test_name(item_for_test):

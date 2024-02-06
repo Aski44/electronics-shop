@@ -22,10 +22,27 @@ class Item:
         Item.all.append(self)
 
     def __repr__(self):
+        """
+        Возвращает текстовое представление объекта полезное для отладки
+        в виде названия классов и его атрибутов.
+        """
         return f"{self.__class__.__name__}('{self.__name}', {self.price}, {self.quantity})"
 
     def __str__(self):
+        """
+        Возвращает строковое представление объекта.
+        """
         return self.__name
+
+    def __add__(self, other):
+        """
+        Складывает количество товара в магазине.
+        Проверяет, чтобы нельзя было сложить `Phone` или `Item`
+        с экземплярами не `Phone` или `Item` классов.
+        """
+        if not isinstance(other, Item):
+            raise ValueError('Складывать можно только объекты Item или дочерние от них.')
+        return self.quantity + other.quantity
 
     @property
     def name(self):
