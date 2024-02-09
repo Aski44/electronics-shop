@@ -2,10 +2,6 @@
 import pytest
 
 from src.phone import Phone
-from config import ROOT
-import os
-
-CSV_PATH = os.path.join(ROOT, 'src', 'items.csv')
 
 
 @pytest.fixture
