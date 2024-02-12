@@ -1,7 +1,7 @@
 """Тесты с использованием pytest для модуля item."""
 import pytest
 
-from src.item import Item
+from src.item import Item, InstantiateCSVError
 from src.phone import Phone
 from config import ROOT
 import os
@@ -50,7 +50,7 @@ def test_name_setter(item_for_test):
 
 def test_instantiate_from_csv(item_for_test):
     """Проверка создания объектов из данных файла"""
-    item_for_test.instantiate_from_csv(CSV_PATH)
+    item_for_test.instantiate_from_csv()
     assert len(Item.all) == 5
     item = item_for_test.all[0]
     assert item.name == 'Смартфон'
@@ -72,3 +72,15 @@ def test_apply_discount(item_for_test):
     """Проверка применения установленной скидки для конкретного товара."""
     item_for_test.apply_discount()
     assert item_for_test.price * item_for_test.pay_rate == item_for_test.price
+
+
+def test_FileNotFoundError(item_for_test):
+    """Проверка отлавливания ошибки (если файл отсутствует)."""
+    with pytest.raises(FileNotFoundError, match='_Отсутствует файл item.csv_'):
+        item_for_test.instantiate_from_csv()
+
+
+def test_InstantiateCSVError(item_for_test):
+    """Проверка отлавливания ошибки (если файл поврежден)."""
+    with pytest.raises(InstantiateCSVError, match='_Файл item.csv поврежден_'):
+        item_for_test.instantiate_from_csv()
