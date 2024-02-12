@@ -1,5 +1,13 @@
 import csv
+import os
 from abc import ABC
+
+from config import ROOT
+
+
+class InstantiateCSVError(Exception):
+    """Вызывается когда файл item.csv поврежден и инициализация невозможна."""
+    pass
 
 
 class Item(ABC):
@@ -62,16 +70,22 @@ class Item(ABC):
         self.__name = new_name[:10]
 
     @classmethod
-    def instantiate_from_csv(cls, csvfile):
+    def instantiate_from_csv(cls):
         """
         Класс-метод, инициализирующий экземпляры класса `Item` данными из файла _src/items.csv_
         """
-        cls.all = []  # обнулила список
-        with open(csvfile, newline='', encoding="cp1251") as file:
-            reader = csv.DictReader(file)
-            for row in reader:
-                name, price, quantity = row['name'], float(row['price']), int(row['quantity'])
-                cls(name, price, quantity)
+        try:
+            CSV_PATH = os.path.join(ROOT, 'src', 'items.csv')
+            cls.all = []  # обнулила список
+            with open(CSV_PATH, newline='', encoding="cp1251") as file:
+                reader = csv.DictReader(file)
+                for row in reader:
+                    name, price, quantity = row['name'], float(row['price']), int(row['quantity'])
+                    cls(name, price, quantity)
+        except FileNotFoundError:
+            raise FileNotFoundError('_Отсутствует файл item.csv_')
+        except KeyError:
+            raise InstantiateCSVError('_Файл item.csv поврежден_')
 
     @staticmethod
     def string_to_number(string):
